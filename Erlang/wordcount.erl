@@ -1,4 +1,4 @@
-%#!/usr/bin/env escript
+#!/usr/bin/env escript
 
 -module(wordcount).
 -author('Ted Behling <ted@tedb.us>').

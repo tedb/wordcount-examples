@@ -27,7 +27,7 @@ func main() {
 		go handle_url(counts_channel, this_url)
 	}
 
-	fmt.Print(strings.Join(format_counts(gather_counts(counts_channel, url_count)), "\n"))
+	fmt.Println(strings.Join(format_counts(gather_counts(counts_channel, url_count)), "\n"))
 }
 
 func handle_url(counts_channel chan map[string]int, url string) {
