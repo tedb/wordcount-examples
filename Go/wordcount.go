@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"sort"
+	"regexp"
 )
 
 func main() {
@@ -51,8 +52,14 @@ func get_body(url string) string {
 	return string(body)
 }
 
-// TODO
 func html2text(html string) string {
+	re1 := regexp.MustCompile("<!(.*?)(--.*?--\\s*)+(.*?)>")
+	re2 := regexp.MustCompile("<script[^>]*>([\\S\\s]*?)</script>|<style[^>]*>([\\S\\s]*?)</style>")
+	re3 := regexp.MustCompile("<(?:[^>'\"]*|\".*?\"|'.*?')+>")
+	html = re1.ReplaceAllString(html, "")
+	html = re2.ReplaceAllString(html, "")
+	html = re3.ReplaceAllString(html, "")
+
 	return html
 }
 
@@ -69,12 +76,9 @@ func gather_counts(counts_channel chan map[string]int, url_count int) map[string
 	counts := make(map[string]int)
 
 	// only receive from the channel the number of URL's that we started with
-	count_from_channel := make(map[string]int)
 	for i := 0; i < url_count; i++ {
 		// merge values from new map from the channel onto existing map
-		count_from_channel <- counts_channel
-		fmt.Printf("From channel (%T): %q", count_from_channel, count_from_channel)
-		for k, v := range count_from_channel {
+		for k, v := range <-counts_channel {
 			counts[k] += v
 		}
 	}
@@ -84,7 +88,7 @@ func gather_counts(counts_channel chan map[string]int, url_count int) map[string
 
 // Convert dict to list of key/value tuples, filter to words appearing more than once, sort it descending, and print it
 func format_counts(counts map[string]int) []string {
-	fmt.Println("Formatting:", counts)
+	//fmt.Println("Formatting:", counts)
 	// make array of name/value pairs, removing single-word appearances
 	trimmed_list := make(KeyValuePairs, 0, len(counts))
 	for k, v := range counts {
