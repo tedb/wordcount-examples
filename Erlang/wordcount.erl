@@ -1,4 +1,5 @@
 #!/usr/bin/env escript
+% To compile with erlc, comment out line above using a % 
 
 -module(wordcount).
 -author('Ted Behling <ted@tedb.us>').

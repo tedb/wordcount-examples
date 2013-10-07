@@ -15,7 +15,7 @@ To run:
 	cd Erlang
 	escript wordcount.erl
 
-or, to run compiled:
+or, to run compiled, first comment out the escript line at the top of wordcount.erl with a %, then:
 
 	cd Erlang
 	erlc wordcount.erl
