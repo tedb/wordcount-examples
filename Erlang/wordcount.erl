@@ -1,4 +1,4 @@
-#!/usr/bin/env escript
+%#!/usr/bin/env escript
 % To compile with erlc, comment out line above using a % 
 
 -module(wordcount).
@@ -31,7 +31,8 @@ start() ->
 
 handle_url(GatherPid, Url) ->
 	io:format("Handling URL ~p in ~p~n", [Url, self()]),
-	Text = html2text(get_body(Url)),
+	%Text = html2text(get_body(Url)),
+	Text = get_body(Url),
 	Words = string:tokens(Text, "\r\n\t "),
 	%io:format("Words: ~p~n", [Words]),
 	Dict = count_words(Words),

@@ -7,9 +7,14 @@ import (
 	"io/ioutil"
 	"sort"
 	"regexp"
+	"runtime"
 )
 
 func main() {
+	// use all the CPU's on the machine
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	fmt.Println("Using", runtime.NumCPU(), "CPUs")
+
 	// Fetch the seed URL and parse lines into a list of URLs
 	seed_url := "http://tedb.us/urls.txt"
 
@@ -32,7 +37,8 @@ func main() {
 
 func handle_url(counts_channel chan map[string]int, url string) {
 	fmt.Println("handling URL", url)
-	text := html2text(get_body(url))
+	//text := html2text(get_body(url))
+	text := get_body(url)
 	words := strings.Fields(text)
 	//fmt.Println("Words:", words)
 	count_map := count_words(words)

@@ -1,0 +1,9 @@
+erlang notes:
+- concurrency is about doing more than one thing at once, by interweaving and/or parellism
+- erlang uses processes, which are lightweight; processes' instructions are scheduled across a static OS thread pool that Erlang manages
+- each process has a "mailbox" for incoming "messages", which is like a queue
+- string is linked list of integers, vs binary is a byte array
+- main function gets list, then spawns a process for each URL, and waits for each process to finish, then aggregates 
+- inside the process, URL is downloaded, words are split, 
+
+- improvements: count words as the data streams in from the network
